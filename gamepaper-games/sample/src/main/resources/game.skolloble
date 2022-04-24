@@ -1,0 +1,12 @@
+game /
+
+id - "sample"
+name - "Sample Game!"
+mainClass - "io.github.muqhc.gamepaper.sample.SampleGameConfig"
+
+colorSequence {
+    color: red \
+    color: green \
+    color: blue \
+    color: rgb"ABCDEF" \
+}

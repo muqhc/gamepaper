@@ -1,0 +1,8 @@
+/.idea
+/.gradle
+/build
+/games
+
+# Project exclude paths
+/gamepaper-core/build/
+/gamepaper-games/sample/build/

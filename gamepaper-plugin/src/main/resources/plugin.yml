@@ -1,0 +1,8 @@
+name: GamePaperPlugin
+main: GamePaperPlugin
+version: 0.1.0
+author: muqhc
+commands:
+ gamepaper:
+   aliases: [gamepaper,gp]
+   description: GamePaper plugin command.
