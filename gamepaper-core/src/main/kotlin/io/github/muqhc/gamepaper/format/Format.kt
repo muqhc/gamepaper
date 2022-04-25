@@ -1,5 +1,6 @@
 package io.github.muqhc.gamepaper.format
 
-fun interface Format<TargetType,ResourceType> {
+interface Format<TargetType,ResourceType> {
+    fun checkIsValid(targetType: ResourceType): Boolean
     fun construct(target: ResourceType): TargetType
 }
