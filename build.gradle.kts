@@ -14,6 +14,10 @@ subprojects {
     dependencies {
         implementation(kotlin("stdlib"))
         implementation(kotlin("reflect"))
-        implementation("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+        if (!name.endsWith("core")) {
+            implementation("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+            implementation(project(":${rootProject.name}-core"))
+            implementation("io.github.muqhc:skolloble-parser:1.4.1")
+        }
     }
 }

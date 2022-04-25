@@ -2,6 +2,7 @@ rootProject.name = "gamepaper"
 
 val moduleNameList = listOf(
     "core",
+    "bukkit",
     "games",
     "plugin"
 ).map { "${rootProject.name}-$it" }
