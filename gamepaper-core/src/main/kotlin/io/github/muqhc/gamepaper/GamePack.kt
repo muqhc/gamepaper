@@ -8,9 +8,10 @@ import io.github.muqhc.gamepaper.util.valueMapOfOnResource
 import io.github.muqhc.gamepaper.util.valueMapOfOutOfResource
 import java.io.File
 import kotlin.reflect.KProperty1
+import kotlin.reflect.jvm.javaGetter
 
 class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val gameClass: Class<out Game<*>>) {
-    lateinit var configPropValueMap: Map<KProperty1<out GameConfig,*>,Any?>
+    lateinit var configPropValueMap: Map<String,Any?>
     lateinit var configProxy: GameConfig
 
     fun createGameConfigProxy(configFile: File) {
@@ -19,9 +20,11 @@ class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val ga
 
         configPropValueMap = GameConfig.valueMapOfOnResource(configClass.kotlin,skbleOfJar)
             .plus(GameConfig.valueMapOfOutOfResource(configClass.kotlin,skbleOfFile))
+            .mapKeys { it.key.javaGetter!!.name }
 
         configProxy = implementGameConfig(configClass,configPropValueMap)
     }
 
-    fun newGameInstance() = gameClass.getConstructor().newInstance()
+    fun newGameInstance(args: List<Any>) =
+        gameClass.getConstructor(*args.map { it.javaClass }.toTypedArray()).newInstance()
 }
