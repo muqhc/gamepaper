@@ -6,6 +6,10 @@ import io.github.muqhc.skollobleparser.Element
 import java.net.URL
 
 object DependenciesFormat: FormatMultiElement<List<Dependency>> {
+    override fun checkIsValid(target: List<Element>) {
+//        TODO("Not yet implemented")
+    }
+
     override fun construct(target: List<Element>): List<Dependency> =
         target.flatMap { dependents ->
             dependents.strings.map { notation ->
