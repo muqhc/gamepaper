@@ -55,8 +55,8 @@ fun GameConfig.Companion.valueMapOfProps(props: List<KProperty1<out GameConfig,*
             if (prop.returnType.isMarkedNullable) null
             else throw ConfigEntryNotFoundException("Could not find config entry '${prop.name}' ($prop)")
         else
-            if (formatter is FormatSingleElement<*>) formatter.construct(root.children.find { it.name == prop.name }!!)
-            else (formatter as FormatMultiElement<*>).construct(root.children.filter { it.name == prop.name }.takeIf { it.isNotEmpty() }!!)
+            if (formatter is FormatSingleElement<*>) formatter.constructOnValid(root.children.find { it.name == prop.name }!!)
+            else (formatter as FormatMultiElement<*>).constructOnValid(root.children.filter { it.name == prop.name }.takeIf { it.isNotEmpty() }!!)
     }
 
 fun GameConfig.Companion.valueMapOfOnResource(kClass: KClass<out GameConfig>, root: Element) =
