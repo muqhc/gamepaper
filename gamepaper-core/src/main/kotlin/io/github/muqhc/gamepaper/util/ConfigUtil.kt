@@ -1,6 +1,7 @@
 package io.github.muqhc.gamepaper.util
 
 import io.github.muqhc.gamepaper.config.*
+import io.github.muqhc.gamepaper.exception.ConfigEntryNotFoundException
 import io.github.muqhc.gamepaper.exception.FormatterNotFoundException
 import io.github.muqhc.gamepaper.format.*
 import io.github.muqhc.skollobleparser.Element
@@ -52,7 +53,7 @@ fun GameConfig.Companion.valueMapOfProps(props: List<KProperty1<out GameConfig,*
         val formatter = prop.getFormatter()
         if (root.children.find { it.name == prop.name } == null)
             if (prop.returnType.isMarkedNullable) null
-            else throw NullPointerException("Could not config '${prop.name}'")
+            else throw ConfigEntryNotFoundException("Could not find config entry '${prop.name}' ($prop)")
         else
             if (formatter is FormatSingleElement<*>) formatter.construct(root.children.find { it.name == prop.name }!!)
             else (formatter as FormatMultiElement<*>).construct(root.children.filter { it.name == prop.name }.takeIf { it.isNotEmpty() }!!)
