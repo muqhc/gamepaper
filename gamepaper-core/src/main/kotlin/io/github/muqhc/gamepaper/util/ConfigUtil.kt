@@ -51,7 +51,7 @@ fun KProperty1<out GameConfig,*>.getFormatter(): Format<*,*> =
 fun GameConfig.Companion.valueMapOfProps(props: List<KProperty1<out GameConfig,*>>, root: Element) =
     props.associateWith { prop ->
         val formatter = prop.getFormatter()
-        if (root.children.find { it.name == prop.name } == null)
+        if (!root.children.any { it.name == prop.name })
             if (prop.returnType.isMarkedNullable) null
             else throw ConfigEntryNotFoundException("Could not find config entry '${prop.name}' ($prop)")
         else
