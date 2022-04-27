@@ -26,10 +26,12 @@ class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val ga
         configProxy = implementGameConfig(configClass,configPropValueMap)
     }
 
-    fun createConfigFile(path: String) {
+    fun createConfigFile(path: String): File {
         val file = File("$path${File.separator}${info.id}.skolloble")
         file.writeText(generateConfig(configClass.kotlin,info))
         file.createNewFile()
+        file.setReadOnly()
+        return file
     }
 
     fun newGameInstance(args: List<Any>) =
