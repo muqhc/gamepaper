@@ -5,16 +5,6 @@ subprojects {
         implementation(project(":${rootProject.name}-core"))
         implementation("io.github.muqhc:skolloble-parser:1.4.1")
     }
-    tasks {
-        processResources {
-            filesMatching("**/*.skolloble") {
-                expand(project.properties)
-            }
-            filesMatching("**/*.skble") {
-                expand(project.properties)
-            }
-        }
-    }
 }
 
 tasks.build {
