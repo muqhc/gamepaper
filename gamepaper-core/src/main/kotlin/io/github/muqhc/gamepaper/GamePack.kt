@@ -1,6 +1,7 @@
 package io.github.muqhc.gamepaper
 
 import io.github.muqhc.gamepaper.config.GameConfig
+import io.github.muqhc.gamepaper.config.generateConfig
 import io.github.muqhc.gamepaper.proxy.implementGameConfig
 import io.github.muqhc.gamepaper.util.skollobleOfFile
 import io.github.muqhc.gamepaper.util.skollobleOfJar
@@ -23,6 +24,13 @@ class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val ga
             .mapKeys { it.key.javaGetter!!.name }
 
         configProxy = implementGameConfig(configClass,configPropValueMap)
+    }
+
+    fun createConfigFile(path: String) {
+        val id = GameConfig.skollobleOfJar(jarFile).children.find { it.name == "id" }!!.strings[0]
+        val file = File("$path${File.separator}$id.skolloble")
+        file.writeText(generateConfig(configClass.kotlin))
+        file.createNewFile()
     }
 
     fun newGameInstance(args: List<Any>) =
