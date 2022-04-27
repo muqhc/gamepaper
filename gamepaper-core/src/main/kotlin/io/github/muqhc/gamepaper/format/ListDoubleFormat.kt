@@ -4,6 +4,14 @@ import io.github.muqhc.gamepaper.exception.InvalidConfigException
 import io.github.muqhc.skollobleparser.Element
 
 object ListDoubleFormat: FormatSingleElement<List<Double>> {
+    override val defaultGenText: String = """
+        {
+            `1.0`
+            `2.0`
+            `3.0`
+        }
+    """.trimIndent()
+
     override fun checkIsValid(target: Element) {
         if (target.attribution.isNotEmpty())
             throw InvalidConfigException("it cannot contains attributes")

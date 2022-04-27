@@ -7,6 +7,15 @@ import org.bukkit.Color
 import kotlin.reflect.full.staticProperties
 
 object ColorSequenceFormat: FormatSingleElement<List<Color>> {
+    override val defaultGenText: String = """
+        {
+            color: red \
+            color: green \
+            color: blue \
+            color: rgb"ABCDEF" \
+        }
+    """.trimIndent()
+
     override fun checkIsValid(target: Element) {
         target.children.takeIf {
             it.all {

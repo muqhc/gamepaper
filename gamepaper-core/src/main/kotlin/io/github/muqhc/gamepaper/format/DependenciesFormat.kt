@@ -6,6 +6,8 @@ import io.github.muqhc.skollobleparser.Element
 import java.net.URL
 
 object DependenciesFormat: FormatMultiElement<List<Dependency>> {
+    override val defaultGenText: String = "{}"
+
     override fun checkIsValid(target: List<Element>) {
 //        TODO("Not yet implemented")
     }

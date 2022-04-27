@@ -4,6 +4,8 @@ import io.github.muqhc.gamepaper.exception.InvalidConfigException
 import io.github.muqhc.skollobleparser.Element
 
 object StringFormat: FormatSingleElement<String> {
+    override val defaultGenText: String = "- `hello`"
+
     override fun checkIsValid(target: Element) {
         if (target.attribution.isNotEmpty())
             throw InvalidConfigException("it cannot contains attributes")
