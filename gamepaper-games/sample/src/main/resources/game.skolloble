@@ -2,7 +2,7 @@ game /
 
 id - "sample"
 name - "Sample Game!"
-mainClass - "io.github.muqhc.gamepaper.sample.SampleGameConfig"
+mainClass - "io.github.muqhc.gamepaper.sample.SampleGame"
 
 colorSequence {
     color: red \
