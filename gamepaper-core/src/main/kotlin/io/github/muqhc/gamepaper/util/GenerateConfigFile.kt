@@ -1,10 +1,14 @@
-package io.github.muqhc.gamepaper.config
+package io.github.muqhc.gamepaper.util
 
-import io.github.muqhc.gamepaper.util.getFormatter
+import io.github.muqhc.gamepaper.config.DefaultGeneratingTextValue
+import io.github.muqhc.gamepaper.config.GameConfig
+import io.github.muqhc.gamepaper.config.GameConfigEntry
+import io.github.muqhc.gamepaper.config.ResourceConfig
+import io.github.muqhc.gamepaper.game.GameInfo
 import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
-fun generateConfig(configKClass: KClass<out GameConfig>) =
+fun generateConfig(configKClass: KClass<out GameConfig>, info: GameInfo) =
     configKClass.memberProperties
         .filter { it.annotations.any { it is GameConfigEntry } }
         .filter { !it.annotations.any { it is ResourceConfig } }
@@ -19,4 +23,4 @@ fun generateConfig(configKClass: KClass<out GameConfig>) =
                     )
         }
         .joinToString("\n\n")
-        .let { "game /\n\n$it" }
+        .let { "game: id`${info.id}` /\n\n$it" }
