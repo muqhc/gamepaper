@@ -9,9 +9,10 @@ subprojects {
 
 tasks.build {
     dependsOn(*subprojects.map { ":${project.name}:${it.name}:build" }.toTypedArray())
-    File("${rootProject.rootDir.path}${File.separator}games").delete()
-    copy {
-        from(subprojects.map { File(it.buildDir,"libs").path })
-        into("${rootProject.rootDir.path}${File.separator}games")
+    doLast {
+        copy {
+            from(subprojects.map { File(it.buildDir, "libs").path })
+            into("${rootProject.rootDir.path}${File.separator}games")
+        }
     }
 }
