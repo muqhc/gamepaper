@@ -5,6 +5,7 @@ import io.github.muqhc.gamepaper.format.FormatSingleElement
 import io.github.muqhc.skollobleparser.Element
 import org.bukkit.Color
 import kotlin.reflect.full.staticProperties
+import kotlin.reflect.typeOf
 
 object ColorSequenceFormat: FormatSingleElement<List<Color>> {
     override val defaultGenText: String = """
@@ -31,10 +32,10 @@ object ColorSequenceFormat: FormatSingleElement<List<Color>> {
             Invalid Color Sequence Config!
             Valid Example :
             ${target.name} {
-                color: red \
-                color: green \
-                color: blue \
-                color: rgb"ABCDEF" \
+                color: red ;
+                color: green ;
+                color: rgb"ABCDEF" ;
+                color: rgb"DDBBAA" ;
             }
         """.trimIndent())
     }
@@ -44,9 +45,9 @@ object ColorSequenceFormat: FormatSingleElement<List<Color>> {
             .map {
                 val key = it.attribution.keys.toList()[0]
                 if (key != "rgb")
-                    Color::class.staticProperties.find {
+                    Color::class.staticProperties.filter { it.name != "BIT_MASK" }.find {
                         it.name.lowercase() == key.lowercase()
-                    }!!.get() as Color
+                    }?.get() as? Color ?: throw InvalidConfigException("Invalid Color Name '$key'. Valid Color Names: ${Color::class.staticProperties.filter { it.name != "BIT_MASK" }.joinToString(", ") { it.name.lowercase() }}")
                 else
                     Color.fromRGB(Integer.parseInt(it.attribution[key]!!.value,16))
             }
