@@ -6,5 +6,6 @@ class SampleGame: Game<SampleGameConfig>() {
     override fun onEnable() {
         println("Hello Gamepaper!")
         println(config.colorSequence)
+        println(config.colors)
     }
 }
