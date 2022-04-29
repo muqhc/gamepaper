@@ -3,7 +3,7 @@ subprojects {
     dependencies {
         implementation(project(":${rootProject.name}-bukkit"))
         implementation(project(":${rootProject.name}-core"))
-        implementation("io.github.muqhc:skolloble-parser:1.4.1")
+        implementation("io.github.muqhc:skolloble-parser:1.5.0")
     }
 }
 

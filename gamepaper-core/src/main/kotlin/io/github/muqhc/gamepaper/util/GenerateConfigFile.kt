@@ -13,7 +13,7 @@ fun generateConfig(configKClass: KClass<out GameConfig>, info: GameInfo) =
         .filter { it.annotations.any { it is GameConfigEntry } }
         .filter { !it.annotations.any { it is ResourceConfig } }
         .map {
-            ";${(it.annotations.find { it is GameConfigEntry } as GameConfigEntry).comment};\n" +
+            "*${(it.annotations.find { it is GameConfigEntry } as GameConfigEntry).comment}*\n" +
                     "${it.name} ".plus(it.annotations
                         .find { it is DefaultGeneratingTextValue }
                         ?.let {

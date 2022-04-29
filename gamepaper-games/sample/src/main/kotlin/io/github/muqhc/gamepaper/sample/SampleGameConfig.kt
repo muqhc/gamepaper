@@ -10,15 +10,8 @@ interface SampleGameConfig: GameConfig {
     @SpecificFormatSingle<List<Color>>(ColorSequenceFormat::class)
     val colorSequence: List<Color>
 
-    @GameConfigEntry("color list")
-    @DefaultGeneratingTextValue("""
-        {
-            color: red \
-            color: green \
-            color: blue \
-            color: rgb"ABCDEF" \
-        }
-    """)
-    val colors: List<Color>
+//    @GameConfigEntry("color list")
+//    @SpecificFormatSingle<List<Color>>(ColorSequenceFormat::class)
+//    val colors: List<Color>
 
 }

@@ -5,8 +5,8 @@ name - "Sample Game!"
 mainClass - "io.github.muqhc.gamepaper.sample.SampleGame"
 
 colorSequence {
-    color: red \
-    color: green \
-    color: blue \
-    color: rgb"ABCDEF" \
+    color: red ;
+    color: green ;
+    color: blue ;
+    color: rgb"ABCDEF" ;
 }

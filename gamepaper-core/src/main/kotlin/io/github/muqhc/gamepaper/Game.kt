@@ -4,8 +4,7 @@ import io.github.muqhc.gamepaper.config.GameConfig
 import io.github.muqhc.gamepaper.game.GameLifeCycleInterface
 
 abstract class Game<ConfigTemplate:GameConfig>: GameLifeCycleInterface {
-    var configProxy: ConfigTemplate? = null
-        internal set
+    internal var configProxy: ConfigTemplate? = null
     val config: ConfigTemplate
         get() = configProxy!!
 }
