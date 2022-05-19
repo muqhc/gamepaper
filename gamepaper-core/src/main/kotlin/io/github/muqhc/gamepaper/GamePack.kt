@@ -34,6 +34,6 @@ class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val ga
     }
 
     fun newGameInstance(args: List<Any>) =
-        gameClass.getConstructor(*args.map { it.javaClass }.toTypedArray()).newInstance()
+        gameClass.getConstructor(*args.map { it.javaClass }.toTypedArray()).newInstance(args)
             .also { it.configProxy = configProxy }
 }
