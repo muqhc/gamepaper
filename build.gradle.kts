@@ -17,7 +17,7 @@ subprojects {
         implementation("io.github.muqhc:skolloble-parser:1.5.1")
         if (!name.endsWith("core")) {
             implementation("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
-            implementation(project(":${rootProject.name}-core")
+            implementation(project(":${rootProject.name}-core"))
         }
     }
 }
