@@ -3,7 +3,7 @@ package io.github.muqhc.gamepaper.format
 import io.github.muqhc.gamepaper.exception.InvalidConfigException
 import io.github.muqhc.skollobleparser.Element
 
-object ListIntFormat: FormatSingleElement<List<Int>> {
+object IntListFormat: FormatSingleElement<List<Int>> {
     override val defaultGenText: String = """
         {
             `1`

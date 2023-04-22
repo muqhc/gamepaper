@@ -24,6 +24,14 @@ subprojects {
         implementation(kotlin("stdlib"))
         implementation(kotlin("reflect"))
         implementation("io.github.muqhc:skolloble-parser:${rootProject.ext["skolloble-parser.version"]}")
+
+        implementation("org.apache.maven.resolver:maven-resolver-impl:1.9.8")
+        implementation("org.apache.maven.resolver:maven-resolver-connector-basic:1.9.8")
+        implementation("org.apache.maven.resolver:maven-resolver-transport-file:1.9.8")
+        implementation("org.apache.maven.resolver:maven-resolver-transport-http:1.9.8")
+
+        implementation("org.apache.maven:maven-resolver-provider:3.9.1")
+
         if (name.contains("bukkit")) {
             compileOnly("io.papermc.paper:paper-api:${rootProject.ext["paper-api.version"]}-R0.1-SNAPSHOT")
         }

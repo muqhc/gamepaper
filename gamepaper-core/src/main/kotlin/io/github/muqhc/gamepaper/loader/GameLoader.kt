@@ -3,11 +3,12 @@ package io.github.muqhc.gamepaper.loader
 import io.github.muqhc.gamepaper.Game
 import io.github.muqhc.gamepaper.GamePack
 import io.github.muqhc.gamepaper.config.GameConfig
+import io.github.muqhc.gamepaper.dependency.DependencyLoadingSystem
 import io.github.muqhc.gamepaper.game.GameInfo
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 
-object GameLoader {
+class GameLoader(val dependencyLoadingSystem: DependencyLoadingSystem) {
     private val classes: MutableMap<String, Class<*>?> = ConcurrentHashMap()
 
     private val classLoaders: MutableMap<File, GameClassLoader> = ConcurrentHashMap()
@@ -28,7 +29,21 @@ object GameLoader {
 
             classLoaders[jarFile] = classLoader
 
-            return GamePack(jarFile, configClass, gameClass, info)
+            val result = GamePack(jarFile, configClass, gameClass, info)
+
+            val configFile = File(jarFile.parentFile,"${result.info.id}.config.skolloble")
+            if (!configFile.exists()) result.createConfigFile(jarFile.parentFile)
+            result.createGameConfigProxy(configFile)
+
+            result.configProxy.apply {
+                dependencyLoadingSystem.load(
+                    classLoader,
+                    repositories ?: listOf(),
+                    dependencies ?: listOf()
+                )
+            }
+
+            return result
         } catch (e: Exception) {
             classLoader.close()
             throw e

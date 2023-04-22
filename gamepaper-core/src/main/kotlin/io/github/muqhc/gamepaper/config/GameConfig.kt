@@ -1,7 +1,7 @@
 package io.github.muqhc.gamepaper.config
 
-import io.github.muqhc.gamepaper.dependency.Dependency
-import io.github.muqhc.gamepaper.format.DependenciesFormat
+import io.github.muqhc.gamepaper.dependency.RepositoryInfo
+import io.github.muqhc.gamepaper.format.RepositoryInfoListFormat
 
 interface GameConfig {
     companion object
@@ -20,7 +20,11 @@ interface GameConfig {
 
     @GameConfigEntry("Game's dependencies library on maven repository")
     @ResourceConfig
-    @SpecificFormatMulti<List<Dependency>>(DependenciesFormat::class)
-    val dependencies: List<Dependency>?
+    val dependencies: List<String>?
+
+    @GameConfigEntry("Game's maven repositories for dependencies")
+    @ResourceConfig
+    @SpecificFormatSingle<List<RepositoryInfo>>(RepositoryInfoListFormat::class)
+    val repositories: List<RepositoryInfo>?
 
 }
