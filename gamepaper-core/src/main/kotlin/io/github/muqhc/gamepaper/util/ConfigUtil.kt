@@ -62,9 +62,9 @@ fun GameConfig.Companion.valueMapOfProps(props: List<KProperty1<out GameConfig,*
 fun GameConfig.Companion.valueMapOfOnResource(kClass: KClass<out GameConfig>, root: Element) =
     valueMapOfProps(kClass.memberProperties
         .filter { it.annotations.any { it is GameConfigEntry } }
-        .filter { it.annotations.contains(ResourceConfig()) },root)
+        .filter { it.annotations.any { it is ResourceConfig } },root)
 
 fun GameConfig.Companion.valueMapOfOutOfResource(kClass: KClass<out GameConfig>, root: Element) =
     valueMapOfProps(kClass.memberProperties
         .filter { it.annotations.any { it is GameConfigEntry } }
-        .filterNot { it.annotations.contains(ResourceConfig()) },root)
+        .filterNot { it.annotations.any { it is ResourceConfig } },root)
