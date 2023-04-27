@@ -7,11 +7,11 @@ interface SampleGameConfig: GameConfig {
 
     @GameConfigEntry("color sequence")
     @ResourceConfig
-    @SpecificFormatSingle<List<Color>>(ColorSequenceFormat::class)
+    @SpecificFormatSingle(ColorSequenceFormat::class)
     val colorSequence: List<Color>
 
     @GameConfigEntry("color list")
-    @SpecificFormatSingle<List<Color>>(ColorSequenceFormat::class)
+    @SpecificFormatSingle(ColorSequenceFormat::class)
     val colors: List<Color>
 
 }

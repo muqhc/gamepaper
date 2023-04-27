@@ -34,9 +34,17 @@ subprojects {
 
         if (name.contains("bukkit")) {
             compileOnly("io.papermc.paper:paper-api:${rootProject.ext["paper-api.version"]}-R0.1-SNAPSHOT")
+            if (!name.contains("api") && !name.contains("core"))
+                implementation(project(":${rootProject.name}-core-bukkit"))
         }
-        if (!name.endsWith("core")) {
-            implementation(project(":${rootProject.name}-core"))
+        if (name.contains("core") || name.contains("plugin")) {
+            api(project(":"+(name.replace("core","api").replace("plugin","api"))))
+            if (name != "${rootProject.name}-core")
+                api(project(":${rootProject.name}-core"))
+        }
+        if (name.contains("api")) {
+            if (name != "${rootProject.name}-api")
+                api(project(":${rootProject.name}-api"))
         }
     }
 }

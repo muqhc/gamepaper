@@ -2,8 +2,8 @@ package io.github.muqhc.gamepaper.loader
 
 import io.github.muqhc.gamepaper.Game
 import io.github.muqhc.gamepaper.GamePack
-import io.github.muqhc.gamepaper.config.GameConfig
 import io.github.muqhc.gamepaper.dependency.DependencyLoadingSystem
+import io.github.muqhc.gamepaper.game.ConfigureWith
 import io.github.muqhc.gamepaper.game.GameInfo
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
@@ -23,9 +23,8 @@ class GameLoader(val dependencyLoadingSystem: DependencyLoadingSystem) {
         try {
             val gameClass =
                 Class.forName(info.mainClass, true, classLoader).asSubclass(Game::class.java)
-            val configClassName =
-                gameClass.kotlin.supertypes.first().arguments.first().type.toString().removePrefix("class ")
-            val configClass = Class.forName(configClassName, true, classLoader).asSubclass(GameConfig::class.java)
+            val configClass =
+                gameClass.annotations.filterIsInstance<ConfigureWith>().single().target.java
 
             classLoaders[jarFile] = classLoader
 

@@ -25,7 +25,7 @@ fun GameConfig.Companion.skollobleOfFile(file: File): Element {
 }
 
 fun KProperty1<out GameConfig,*>.getSingleFormatter(): FormatSingleElement<*> {
-    val formatNotation = annotations.find { it is SpecificFormatSingle<*> } as? SpecificFormatSingle<*>
+    val formatNotation = annotations.find { it is SpecificFormatSingle } as? SpecificFormatSingle
     if (formatNotation != null) return formatNotation.format.objectInstance!!
     return when (returnType) {
         typeOf<String>() -> StringFormat
@@ -39,13 +39,13 @@ fun KProperty1<out GameConfig,*>.getSingleFormatter(): FormatSingleElement<*> {
 }
 
 fun KProperty1<out GameConfig,*>.getMultiFormatter(): FormatMultiElement<*> {
-    val formatNotation = annotations.find { it is SpecificFormatMulti<*> } as? SpecificFormatMulti<*>
+    val formatNotation = annotations.find { it is SpecificFormatMulti } as? SpecificFormatMulti
     if (formatNotation != null) return formatNotation.format.objectInstance!!
     throw FormatterNotFoundException("Could not find multi formatter for $this")
 }
 
-fun KProperty1<out GameConfig,*>.getFormatter(): Format<*,*> =
-    if (annotations.find { it is SpecificFormatMulti<*> } == null) getSingleFormatter()
+fun KProperty1<out GameConfig,*>.getFormatter(): Format<*, *> =
+    if (annotations.find { it is SpecificFormatMulti } == null) getSingleFormatter()
     else getMultiFormatter()
 
 fun GameConfig.Companion.valueMapOfProps(props: List<KProperty1<out GameConfig,*>>, root: Element) =

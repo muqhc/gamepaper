@@ -44,7 +44,11 @@ class GamePaperPlugin: JavaPlugin() {
     fun kommandConfiguration() {
         kommand {
             register("gamepaper") {
-                then("create_game") {
+                val gamePackArg = dynamic { context, input ->
+
+                }
+
+                then("create_game","game_name" to gamePackArg) {
 
                 }
             }

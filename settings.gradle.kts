@@ -1,10 +1,12 @@
 rootProject.name = "gamepaper"
 
 val moduleNameList = listOf(
+    "api",
     "core",
-    "bukkit",
+    "api-bukkit",
+    "core-bukkit",
     "games",
-    "bukkit-plugin"
+    "plugin-bukkit"
 ).map { "${rootProject.name}-$it" }
 
 rootProject.projectDir.list().forEach {

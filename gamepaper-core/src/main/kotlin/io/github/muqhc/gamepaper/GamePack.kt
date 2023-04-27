@@ -11,10 +11,8 @@ import io.github.muqhc.gamepaper.util.skollobleOfJar
 import io.github.muqhc.gamepaper.util.valueMapOfOnResource
 import io.github.muqhc.gamepaper.util.valueMapOfOutOfResource
 import java.io.File
-import java.lang.reflect.Type
 import kotlin.reflect.KType
 import kotlin.reflect.jvm.javaGetter
-import kotlin.reflect.typeOf
 
 class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val gameClass: Class<out Game<*>>, val info: GameInfo) {
     lateinit var configPropValueMap: Map<String,Any?>
@@ -25,7 +23,7 @@ class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val ga
     val gameConstructorContexts =  try {
         gameClass.kotlin.constructors.map { c ->
             c.parameters.map {
-                it.annotations.filterIsInstance<SpecificContext<*>>()
+                it.annotations.filterIsInstance<SpecificContext>()
                     .firstOrNull()?.parser?.objectInstance
                     ?: defaultContextKit.getOrElse(it.type) {
                         error(
@@ -61,5 +59,5 @@ class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val ga
 
     fun newGameInstance(args: List<Any>) =
         gameClass.getConstructor(*args.map { it.javaClass }.toTypedArray()).newInstance(args)
-            .also { it.configProxy = configProxy }
+            .also { it.___configProxy = configProxy }
 }

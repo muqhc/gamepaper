@@ -24,7 +24,7 @@ interface GameConfig {
 
     @GameConfigEntry("Game's maven repositories for dependencies")
     @ResourceConfig
-    @SpecificFormatSingle<List<RepositoryInfo>>(RepositoryInfoListFormat::class)
+    @SpecificFormatSingle(RepositoryInfoListFormat::class)
     val repositories: List<RepositoryInfo>?
 
 }

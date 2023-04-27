@@ -4,7 +4,7 @@ import io.github.muqhc.gamepaper.config.GameConfig
 import io.github.muqhc.gamepaper.game.GameLifeCycleInterface
 
 abstract class Game<ConfigTemplate:GameConfig>: GameLifeCycleInterface {
-    internal var configProxy: GameConfig? = null
+    var ___configProxy: GameConfig? = null //TODO: 접근성 제한하기
     val config: ConfigTemplate
-        get() = configProxy!! as ConfigTemplate
+        get() = ___configProxy!! as ConfigTemplate
 }
