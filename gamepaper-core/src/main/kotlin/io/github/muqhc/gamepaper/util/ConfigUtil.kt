@@ -11,6 +11,7 @@ import java.util.jar.JarFile
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.full.withNullability
 import kotlin.reflect.typeOf
 
 fun GameConfig.Companion.skollobleOfJar(jarFile: File): Element {
@@ -27,7 +28,7 @@ fun GameConfig.Companion.skollobleOfFile(file: File): Element {
 fun KProperty1<out GameConfig,*>.getSingleFormatter(): FormatSingleElement<*> {
     val formatNotation = annotations.find { it is SpecificFormatSingle } as? SpecificFormatSingle
     if (formatNotation != null) return formatNotation.format.objectInstance!!
-    return when (returnType) {
+    return when (returnType.withNullability(false)) {
         typeOf<String>() -> StringFormat
         typeOf<Int>() -> IntFormat
         typeOf<Double>() -> DoubleFormat

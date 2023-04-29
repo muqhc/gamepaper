@@ -11,7 +11,11 @@ import io.github.muqhc.gamepaper.util.skollobleOfJar
 import io.github.muqhc.gamepaper.util.valueMapOfOnResource
 import io.github.muqhc.gamepaper.util.valueMapOfOutOfResource
 import java.io.File
+import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.KProperty2
 import kotlin.reflect.KType
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaGetter
 
 class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val gameClass: Class<out Game<*>>, val info: GameInfo) {
@@ -51,13 +55,18 @@ class GamePack(val jarFile: File, val configClass: Class<out GameConfig>, val ga
     }
 
     fun createConfigFile(dir: File): File {
-        val file = File(dir,"${info.id}.skolloble")
+        val file = File(dir,"${info.id}.config.skolloble")
         file.writeText(generateConfig(configClass.kotlin,info))
         file.createNewFile()
         return file
     }
 
     fun newGameInstance(args: List<Any>) =
-        gameClass.getConstructor(*args.map { it.javaClass }.toTypedArray()).newInstance(args)
-            .also { it.___configProxy = configProxy }
+        gameClass.getConstructor(*args.map { it.javaClass }.toTypedArray())
+            .newInstance(*args.toTypedArray())
+            .also {
+                (Game::class.memberProperties
+                    .find { it.name == "configProxy" }!! as KMutableProperty1<Game<*>,GameConfig?>)
+                    .set(it,configProxy)
+            }
 }

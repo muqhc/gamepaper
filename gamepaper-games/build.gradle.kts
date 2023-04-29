@@ -4,7 +4,6 @@ subprojects {
         implementation(project(":${rootProject.name}-api-bukkit"))
         implementation("io.github.muqhc:skolloble-parser:${rootProject.ext["skolloble-parser.version"]}")
         compileOnly("io.papermc.paper:paper-api:${rootProject.ext["paper-api.version"]}-R0.1-SNAPSHOT")
-        testImplementation("io.papermc.paper:paper-api:${rootProject.ext["paper-api.version"]}-R0.1-SNAPSHOT")
     }
 }
 
